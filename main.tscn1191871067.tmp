@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu4g6ltnvtgrq"]
+
+[ext_resource type="Script" uid="uid://yiqajko13mp2" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://ccvl6sv78ar38" path="res://Player/player.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ig7tw")
+
+[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(49, 28)
+
+[node name="LoopTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+offset_right = 414.0
+offset_bottom = 218.0
+text = "time"

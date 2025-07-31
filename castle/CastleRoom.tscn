@@ -1,0 +1,370 @@
+[gd_scene load_steps=19 format=4 uid="uid://dljxoyeiv8p5y"]
+
+[ext_resource type="Script" uid="uid://5mvub80n0ssv" path="res://castle/CastleRoom.gd" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://ccvl6sv78ar38" path="res://Player/player.tscn" id="2_fghij"]
+[ext_resource type="Texture2D" uid="uid://b6kjxppjjtd8f" path="res://World/room1.png" id="2_qcqro"]
+[ext_resource type="Texture2D" uid="uid://dqjywceu23jh8" path="res://castle/floor.png" id="3_2cfub"]
+[ext_resource type="Texture2D" uid="uid://cb2dujludmka6" path="res://castle/pillar.png" id="3_klmno"]
+[ext_resource type="Script" uid="uid://cd57obkjx5d01" path="res://castle/DialogueBox.gd" id="4_pqrst"]
+[ext_resource type="Texture2D" uid="uid://dmc20n4lvd63i" path="res://castle/pillarsheet.png" id="4_uvkmk"]
+[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://edit-undo.brk.ttf" id="5_uvwxy"]
+[ext_resource type="Script" uid="uid://r2knxu2h7ds2" path="res://castle/TutorialUI.gd" id="6_tutorial"]
+[ext_resource type="AudioStream" uid="uid://cb0pkbadp4i7h" path="res://Audio/tutorial complete.wav" id="9_dg5m2"]
+[ext_resource type="Texture2D" uid="uid://c4brlifbguvjw" path="res://castle/arrow.png" id="11_jny0t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2cfub"]
+size = Vector2(32, 352)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dg5m2"]
+texture = ExtResource("3_2cfub")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jny0t"]
+texture = ExtResource("4_uvkmk")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_j0tvp"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_dg5m2")
+sources/1 = SubResource("TileSetAtlasSource_jny0t")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0, 0, 0, 0.75)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.545, 0.271, 0.075, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uvkmk"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dg5m2"]
+size = Vector2(32, 32)
+
+[node name="CastleRoom" type="Node2D"]
+script = ExtResource("1_abcde")
+
+[node name="Barrier" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Barrier"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier/StaticBody2D"]
+position = Vector2(-16, 176)
+shape = SubResource("RectangleShape2D_2cfub")
+
+[node name="bg" type="Node2D" parent="."]
+
+[node name="Node2D2" type="Node2D" parent="bg"]
+position = Vector2(240, 160)
+
+[node name="Sprite2D" type="Sprite2D" parent="bg/Node2D2"]
+z_index = -2
+texture = ExtResource("2_qcqro")
+metadata/_edit_lock_ = true
+
+[node name="pillars" type="Node2D" parent="bg/Node2D2"]
+metadata/_edit_lock_ = true
+
+[node name="pillar" type="Sprite2D" parent="bg/Node2D2/pillars"]
+position = Vector2(-192, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar2" type="Sprite2D" parent="bg/Node2D2/pillars"]
+position = Vector2(-96, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar3" type="Sprite2D" parent="bg/Node2D2/pillars"]
+texture = ExtResource("3_klmno")
+metadata/_edit_lock_ = true
+
+[node name="pillar4" type="Sprite2D" parent="bg/Node2D2/pillars"]
+position = Vector2(96, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar5" type="Sprite2D" parent="bg/Node2D2/pillars"]
+position = Vector2(192, 0)
+texture = ExtResource("3_klmno")
+
+[node name="Node2D3" type="Node2D" parent="bg"]
+position = Vector2(720, 160)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="bg/Node2D3"]
+z_index = -2
+texture = ExtResource("2_qcqro")
+metadata/_edit_lock_ = true
+
+[node name="Node2D2" type="Node2D" parent="bg/Node2D3"]
+metadata/_edit_lock_ = true
+
+[node name="pillar" type="Sprite2D" parent="bg/Node2D3/Node2D2"]
+position = Vector2(-192, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar2" type="Sprite2D" parent="bg/Node2D3/Node2D2"]
+position = Vector2(-96, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar3" type="Sprite2D" parent="bg/Node2D3/Node2D2"]
+texture = ExtResource("3_klmno")
+metadata/_edit_lock_ = true
+
+[node name="pillar4" type="Sprite2D" parent="bg/Node2D3/Node2D2"]
+position = Vector2(96, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar5" type="Sprite2D" parent="bg/Node2D3/Node2D2"]
+position = Vector2(192, 0)
+texture = ExtResource("3_klmno")
+
+[node name="Node2D4" type="Node2D" parent="bg"]
+position = Vector2(1200, 160)
+
+[node name="Sprite2D2" type="Sprite2D" parent="bg/Node2D4"]
+z_index = -2
+texture = ExtResource("2_qcqro")
+metadata/_edit_lock_ = true
+
+[node name="Node2D2" type="Node2D" parent="bg/Node2D4"]
+metadata/_edit_lock_ = true
+
+[node name="pillar" type="Sprite2D" parent="bg/Node2D4/Node2D2"]
+position = Vector2(-192, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar2" type="Sprite2D" parent="bg/Node2D4/Node2D2"]
+position = Vector2(-96, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar3" type="Sprite2D" parent="bg/Node2D4/Node2D2"]
+texture = ExtResource("3_klmno")
+metadata/_edit_lock_ = true
+
+[node name="pillar4" type="Sprite2D" parent="bg/Node2D4/Node2D2"]
+position = Vector2(96, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar5" type="Sprite2D" parent="bg/Node2D4/Node2D2"]
+position = Vector2(192, 0)
+texture = ExtResource("3_klmno")
+
+[node name="Node2D5" type="Node2D" parent="bg"]
+position = Vector2(1680, 160)
+
+[node name="Sprite2D2" type="Sprite2D" parent="bg/Node2D5"]
+z_index = -2
+texture = ExtResource("2_qcqro")
+metadata/_edit_lock_ = true
+
+[node name="Node2D2" type="Node2D" parent="bg/Node2D5"]
+metadata/_edit_lock_ = true
+
+[node name="pillar" type="Sprite2D" parent="bg/Node2D5/Node2D2"]
+position = Vector2(-192, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar2" type="Sprite2D" parent="bg/Node2D5/Node2D2"]
+position = Vector2(-96, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar3" type="Sprite2D" parent="bg/Node2D5/Node2D2"]
+texture = ExtResource("3_klmno")
+metadata/_edit_lock_ = true
+
+[node name="pillar4" type="Sprite2D" parent="bg/Node2D5/Node2D2"]
+position = Vector2(96, 0)
+texture = ExtResource("3_klmno")
+
+[node name="pillar5" type="Sprite2D" parent="bg/Node2D5/Node2D2"]
+position = Vector2(192, 0)
+texture = ExtResource("3_klmno")
+
+[node name="bg2" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 3456.0
+offset_bottom = 320.0
+color = Color(0.130632, 0.130615, 0.278411, 0.215686)
+metadata/_edit_lock_ = true
+
+[node name="black" type="ColorRect" parent="."]
+offset_right = 3456.0
+offset_bottom = 320.0
+color = Color(0, 0, 0, 0.196078)
+metadata/_edit_lock_ = true
+
+[node name="fg" type="ColorRect" parent="."]
+z_index = 1
+offset_right = 3456.0
+offset_bottom = 320.0
+color = Color(0.72549, 0.6, 0, 0.0196078)
+metadata/_edit_lock_ = true
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(64, 288)
+tile_map_data = PackedByteArray("AAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAQAAEAAAAAAAAAAAARAAEAAAAAAAAAAAASAAEAAAAAAAAAAAATAAEAAAAAAAAAAAAUAAEAAAAAAAAAAAAVAAEAAAAAAAAAAAAWAAEAAAAAAAAAAAAXAAEAAAAAAAAAAAAYAAEAAAAAAAAAAAAZAAEAAAAAAAAAAAAaAAEAAAAAAAAAAAAbAAEAAAAAAAAAAAAHAAAAAAAAAAAAAAAHAP//AAAAAAAAAAAPAP7/AAAAAAAAAAAOAP3/AAAAAAAAAAAPAP3/AAAAAAAAAAAQAP3/AAAAAAAAAAAPAP//AAAAAAAAAAAPAAAAAAAAAAAAAAAcAAEAAAAAAAAAAAAdAAEAAAAAAAAAAAAeAAEAAAAAAAAAAAAfAAEAAAAAAAAAAAAgAAEAAAAAAAAAAAAhAAEAAAAAAAAAAAAiAAEAAAAAAAAAAAAjAAEAAAAAAAAAAAAkAAEAAAAAAAAAAAAlAAEAAAAAAAAAAAAmAAEAAAAAAAAAAAAnAAEAAAAAAAAAAAAoAAEAAAAAAAAAAAApAAEAAAAAAAAAAAAqAAEAAAAAAAAAAAArAAEAAAAAAAAAAAAsAAEAAAAAAAAAAAAtAAEAAAAAAAAAAAAuAAEAAAAAAAAAAAAvAAEAAAAAAAAAAAAwAAEAAAAAAAAAAAAxAAEAAAAAAAAAAAAyAAEAAAAAAAAAAAAzAAEAAAAAAAAAAAA0AAEAAAAAAAAAAAA1AAEAAAAAAAAAAAA2AAEAAAAAAAAAAAA3AAEAAAAAAAAAAAA4AAEAAAAAAAAAAAA5AAEAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_j0tvp")
+
+[node name="Player" parent="." instance=ExtResource("2_fghij")]
+position = Vector2(64, 320)
+
+[node name="DialogueBox" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("4_pqrst")
+
+[node name="Panel" type="Panel" parent="DialogueBox"]
+visible = false
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="Label" type="Label" parent="DialogueBox/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_uvwxy")
+theme_override_font_sizes/font_size = 32
+text = "Where... am I? Why can't I remember anything?"
+vertical_alignment = 1
+
+[node name="Indicator" type="Label" parent="DialogueBox/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_uvwxy")
+theme_override_font_sizes/font_size = 32
+text = ">"
+
+[node name="Timer" type="Timer" parent="DialogueBox"]
+wait_time = 0.05
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="TutorialCompleteSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("9_dg5m2")
+volume_db = -5.0
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="jump" type="Area2D" parent="Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/jump"]
+position = Vector2(304, 240)
+shape = SubResource("RectangleShape2D_uvkmk")
+
+[node name="move" type="Area2D" parent="Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/move"]
+position = Vector2(192, 304)
+shape = SubResource("RectangleShape2D_dg5m2")
+
+[node name="dash" type="Area2D" parent="Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/dash"]
+position = Vector2(560, 176)
+shape = SubResource("RectangleShape2D_dg5m2")
+
+[node name="TutorialUI" type="CanvasLayer" parent="."]
+script = ExtResource("6_tutorial")
+
+[node name="Panel" type="Panel" parent="TutorialUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_right = 250.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="Label" type="Label" parent="TutorialUI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_uvwxy")
+theme_override_font_sizes/font_size = 20
+text = "Tutorial instruction will appear here"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="FadeOverlay" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="FadeOverlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+metadata/_edit_lock_ = true
+
+[node name="tutorial arrows" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="tutorial arrows"]
+position = Vector2(96, 304)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_jny0t")
+
+[node name="Sprite2D2" type="Sprite2D" parent="tutorial arrows"]
+position = Vector2(256, 272)
+rotation = 0.785398
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_jny0t")
+
+[node name="Sprite2D3" type="Sprite2D" parent="tutorial arrows"]
+position = Vector2(400, 192)
+rotation = 1.45037
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_jny0t")
+
+[connection signal="dialogue_finished" from="DialogueBox" to="." method="_on_DialogueBox_dialogue_finished"]
+[connection signal="body_entered" from="Node2D/jump" to="." method="_on_jump_body_entered"]
+[connection signal="body_entered" from="Node2D/move" to="." method="_on_move_body_entered"]
+[connection signal="body_entered" from="Node2D/dash" to="." method="_on_dash_body_entered"]

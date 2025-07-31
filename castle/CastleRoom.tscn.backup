@@ -1,0 +1,141 @@
+[gd_scene load[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0, 0, 0, 0.75)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.545, 0.271, 0.075, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5=9 format=3 uid="uid://dljxoyeiv8p5y"]
+
+[ext_resource type="Script" uid="uid://5mvub80n0ssv" path="res://castle/CastleRoom.gd" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://ccvl6sv78ar38" path="res://Player/player.tscn" id="2_fghij"]
+[ext_resource type="Texture2D" uid="uid://cb2dujludmka6" path="res://castle/pillar.png" id="3_klmno"]
+[ext_resource type="Script" uid="uid://cd57obkjx5d01" path="res://castle/DialogueBox.gd" id="4_pqrst"]
+[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://edit-undo.brk.ttf" id="5_uvwxy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(1152, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
+size = Vector2(64, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1"]
+texture = ExtResource("3_klmno")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[node name="CastleRoom" type="Node2D"]
+script = ExtResource("1_abcde")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -1.0
+offset_top = 2.0
+offset_right = 1151.0
+offset_bottom = 650.0
+color = Color(0.1, 0.1, 0.15, 1)
+
+[node name="ShiningPillar" type="Sprite2D" parent="."]
+position = Vector2(150, 450)
+texture = ExtResource("3_klmno")
+
+[node name="Light2D" type="PointLight2D" parent="ShiningPillar"]
+color = Color(0.8, 0.8, 1, 1)
+energy = 1.5
+texture = ExtResource("3_klmno")
+
+[node name="Platforms" type="StaticBody2D" parent="."]
+
+[node name="Floor" type="CollisionShape2D" parent="Platforms"]
+position = Vector2(576, 616)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="WallLeft" type="CollisionShape2D" parent="Platforms"]
+position = Vector2(32, 324)
+shape = SubResource("RectangleShape2D_2")
+
+[node name="WallRight" type="CollisionShape2D" parent="Platforms"]
+position = Vector2(1120, 324)
+shape = SubResource("RectangleShape2D_2")
+
+[node name="Player" parent="." instance=ExtResource("2_fghij")]
+position = Vector2(576, 500)
+
+[node name="MemoryPoint" type="Area2D" parent="."]
+position = Vector2(900, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MemoryPoint"]
+shape = SubResource("RectangleShape2D_2")
+
+[node name="LoopTrigger" type="Area2D" parent="."]
+position = Vector2(100, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoopTrigger"]
+shape = SubResource("RectangleShape2D_2")
+
+[node name="DialogueBox" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("4_pqrst")
+
+[node name="Panel" type="Panel" parent="DialogueBox"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="Label" type="Label" parent="DialogueBox/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_uvwxy")
+theme_override_font_sizes/font_size = 32
+text = "Where... am I? Why can't I remember anything?"
+vertical_alignment = 1
+
+[node name="Indicator" type="Label" parent="DialogueBox/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_uvwxy")
+theme_override_font_sizes/font_size = 32
+text = ">"
+
+[node name="Timer" type="Timer" parent="DialogueBox"]
+wait_time = 0.05
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="MemorySFX" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="LoopSFX" type="AudioStreamPlayer" parent="Audio"]
+
+[connection signal="body_entered" from="MemoryPoint" to="." method="_on_MemoryPoint_body_entered"]
+[connection signal="body_entered" from="LoopTrigger" to="." method="_on_LoopTrigger_body_entered"]
+[connection signal="dialogue_finished" from="DialogueBox" to="." method="_on_DialogueBox_dialogue_finished"]
