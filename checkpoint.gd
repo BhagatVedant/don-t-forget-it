@@ -81,6 +81,10 @@ func activate_checkpoint():
 	is_activated = true
 	print("Activating checkpoint ", checkpoint_level, " at position: ", global_position)
 	
+	# Show instruction screen for checkpoint level 1
+	if checkpoint_level == 1:
+		show_checkpoint_instructions()
+	
 	# Track highest checkpoint reached for double jump persistence
 	var current_highest = 1
 	if SceneManager.has_variable("highest_checkpoint_reached"):
@@ -123,6 +127,27 @@ func activate_checkpoint():
 		SceneManager.show_victory()
 	
 	print("Checkpoint ", checkpoint_level, " activation complete")
+
+func show_checkpoint_instructions():
+	# Find the CheckpointInstructionUI in the scene
+	var instruction_ui = get_tree().get_first_node_in_group("checkpoint_instruction_ui")
+	if not instruction_ui:
+		# Try to find it by name in the current scene
+		var current_scene = get_tree().current_scene
+		if current_scene:
+			instruction_ui = current_scene.get_node_or_null("CheckpointInstructionUI")
+	
+	# If we still can't find it, create it dynamically
+	if not instruction_ui:
+		var instruction_scene = preload("res://CheckpointInstructionUI.tscn")
+		instruction_ui = instruction_scene.instantiate()
+		get_tree().current_scene.add_child(instruction_ui)
+		print("Created CheckpointInstructionUI dynamically")
+	
+	if instruction_ui and instruction_ui.has_method("show_instruction"):
+		instruction_ui.show_instruction()
+	else:
+		print("Could not find or create CheckpointInstructionUI")
 
 func start_level_timer():
 	current_timer = timer_duration
