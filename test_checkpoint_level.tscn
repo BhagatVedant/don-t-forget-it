@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" uid="uid://bdj03vr3txi30" path="res://Player/player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://b1pgbs3a1prgd" path="res://checkpoint.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bi3eo1vwdwuwc" path="res://spike.tscn" id="3"]
+[ext_resource type="Script" path="res://spikes_container.gd" id="4"]
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(100, 400)
+
+[node name="Checkpoint1" parent="." instance=ExtResource("2")]
+position = Vector2(200, 400)
+checkpoint_level = 1
+timer_duration = 5.0
+
+[node name="Checkpoint2" parent="." instance=ExtResource("2")]
+position = Vector2(600, 400)
+checkpoint_level = 2
+timer_duration = 5.0
+
+[node name="Checkpoint3" parent="." instance=ExtResource("2")]
+position = Vector2(1000, 400)
+checkpoint_level = 3
+timer_duration = 5.0
+
+[node name="SpikesContainer" type="Node2D" parent="."]
+script = ExtResource("4")
+
+[node name="Spike1" parent="SpikesContainer" instance=ExtResource("3")]
+position = Vector2(400, 450)
+
+[node name="Spike2" parent="SpikesContainer" instance=ExtResource("3")]
+position = Vector2(800, 450)
+
+[node name="Spike3" parent="SpikesContainer" instance=ExtResource("3")]
+position = Vector2(1200, 450)
+
+[node name="Platform1" type="StaticBody2D" parent="."]
+position = Vector2(0, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1"]
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(1400, 500)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Platform2"]

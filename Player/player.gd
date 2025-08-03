@@ -11,13 +11,17 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animated_sprite = $AnimatedSprite2D
 
-@export var can_double_jump = true
+@export var can_double_jump = false
 @export var can_dash = true
 
 var jump_count = 0
 var is_dashing = false
 var can_process_input = true  # New variable to control input processing
 var tutorial_step = 0        # Current tutorial step
+
+# Movement restriction variables
+var movement_disabled = false
+var jump_disabled = false
 
 func _physics_process(delta):
 	# Apply variable gravity based on jump state
@@ -34,8 +38,8 @@ func _physics_process(delta):
 
 	# Only process input if allowed (not during dialogue)
 	if can_process_input:
-		# Handle Jump - only allowed from tutorial step 1 onwards
-		if Input.is_action_just_pressed("jump") and tutorial_step >= 1:
+		# Handle Jump - only allowed from tutorial step 1 onwards and if jump not disabled
+		if Input.is_action_just_pressed("jump") and tutorial_step >= 1 and not jump_disabled:
 			if is_on_floor():
 				jump()
 			elif can_double_jump and jump_count < 2:
@@ -45,13 +49,16 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("dash") and can_dash and not is_dashing and tutorial_step >= 2:
 			dash()
 
-		# Movement is always allowed during tutorial
-		if not is_dashing:
+		# Movement - only allowed if not disabled
+		if not is_dashing and not movement_disabled:
 			var direction = Input.get_axis("ui_left", "ui_right")
 			if direction:
 				velocity.x = direction * SPEED
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
+		elif movement_disabled:
+			# Stop all horizontal movement when disabled
+			velocity.x = move_toward(velocity.x, 0, SPEED * 2)
 	else:
 		# During dialogue, stop horizontal movement
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -78,6 +85,12 @@ func dash():
 	is_dashing = true
 	velocity.x = (-1 if animated_sprite.flip_h else 1) * DASH_SPEED
 	animated_sprite.play("roll")  # Play roll animation during dash
+	
+	# Play dash sound
+	var audio_manager = get_node("/root/AudioManager")
+	if audio_manager:
+		audio_manager.play_dash_sound()
+	
 	await get_tree().create_timer(0.2).timeout
 	is_dashing = false
 
@@ -129,3 +142,20 @@ func respawn_at_checkpoint():
 func die():
 	print("Player died - respawning at checkpoint")
 	respawn_at_checkpoint()
+
+# Movement restriction functions for checkpoint system
+func disable_all_movement():
+	movement_disabled = true
+	print("All movement disabled")
+
+func enable_movement():
+	movement_disabled = false
+	print("Movement enabled")
+
+func disable_jump():
+	jump_disabled = true
+	print("Jump disabled")
+
+func enable_jump():
+	jump_disabled = false
+	print("Jump enabled")
