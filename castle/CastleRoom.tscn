@@ -752,6 +752,7 @@ position = Vector2(2672, -64)
 [node name="StarUI" parent="." instance=ExtResource("13_starui")]
 
 [node name="CheckpointInstructionUI" parent="." instance=ExtResource("19_checkpoint_instruction")]
+process_mode = 0
 
 [node name="star" parent="." instance=ExtResource("15_avtuf")]
 position = Vector2(5536, 256)

@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjg8k2lxkqr4p"]
 
-[ext_resource type="Script" path="res://CheckpointInstructionUI.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://02a6fw0u34xe" path="res://CheckpointInstructionUI.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://edit-undo.brk.ttf" id="2_font"]
 
 [node name="CheckpointInstructionUI" type="CanvasLayer"]
-layer = 99
 process_mode = 3
+layer = 99
 script = ExtResource("1_script")
 
 [node name="Control" type="Control" parent="."]
@@ -62,6 +62,7 @@ text = "Checkpoint Reached!"
 horizontal_alignment = 1
 
 [node name="MainLabel" type="Label" parent="Control/Panel/VBoxContainer"]
+clip_contents = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_font")
@@ -69,7 +70,6 @@ theme_override_font_sizes/font_size = 24
 text = "The game is made for you to parkour and get stars before you forget all your moves after each reset you lose a memory to perform an action make sure you reach the end while you remember"
 horizontal_alignment = 1
 autowrap_mode = 3
-clip_contents = true
 
 [node name="WarningLabel" type="Label" parent="Control/Panel/VBoxContainer"]
 layout_mode = 2
