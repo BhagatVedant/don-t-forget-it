@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjg8k2lxkqr4p"]
 
-[ext_resource type="Script" uid="uid://02a6fw0u34xe" path="res://CheckpointInstructionUI.gd" id="1_script"]
-[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://edit-undo.brk.ttf" id="2_font"]
+[ext_resource type="Script" uid="uid://02a6fw0u34xe" path="res://UI/CheckpointInstructionUI.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://Fonts/edit-undo.brk.ttf" id="2_font"]
 
 [node name="CheckpointInstructionUI" type="CanvasLayer"]
 process_mode = 3

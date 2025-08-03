@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://crrp214qn7rud"]
 
-[ext_resource type="Script" uid="uid://1mgc5uryc4ra" path="res://GameOverUI.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://edit-undo.brk.ttf" id="2"]
+[ext_resource type="Script" uid="uid://1mgc5uryc4ra" path="res://UI/GameOverUI.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://Fonts/edit-undo.brk.ttf" id="2"]
 
 [node name="GameOverUI" type="Control"]
 layout_mode = 3

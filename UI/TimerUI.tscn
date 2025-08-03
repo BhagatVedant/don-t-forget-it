@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://TimerUI.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://d0cp5hqqocvo7" path="res://edit-undo.brk.ttf" id="2"]
+[ext_resource type="Script" path="res://UI/TimerUI.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://d0cp5hqqocvo7" path="res://Fonts/edit-undo.brk.ttf" id="2"]
 
 [node name="TimerUI" type="Control"]
 layout_mode = 3

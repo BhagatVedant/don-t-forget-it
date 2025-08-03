@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bckpsob0s3qfa"]
 
 [ext_resource type="Script" uid="uid://64usyfa3a1xx" path="res://castle/intro_ui.gd" id="1_7a463"]
-[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://edit-undo.brk.ttf" id="1_jcnwt"]
+[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://Fonts/edit-undo.brk.ttf" id="1_jcnwt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7a463"]
 font = ExtResource("1_jcnwt")

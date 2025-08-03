@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bkgv7yh5x2p8w"]
 
-[ext_resource type="Script" uid="uid://b1mxcf8qvw0sr" path="res://credits.gd" id="1_credits"]
-[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://edit-undo.brk.ttf" id="2_font"]
+[ext_resource type="Script" uid="uid://b1mxcf8qvw0sr" path="res://Scenes/credits.gd" id="1_credits"]
+[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://Fonts/edit-undo.brk.ttf" id="2_font"]
 
 [node name="Credits" type="CanvasLayer"]
 script = ExtResource("1_credits")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7uo3j46ksffa"]
 
-[ext_resource type="Script" uid="uid://bwr8kyoq465b3" path="res://VictoryUI.gd" id="1_victory"]
-[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://edit-undo.brk.ttf" id="2_font"]
+[ext_resource type="Script" uid="uid://bwr8kyoq465b3" path="res://UI/VictoryUI.gd" id="1_victory"]
+[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://Fonts/edit-undo.brk.ttf" id="2_font"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_victory"]
 bg_color = Color(0, 0, 0, 0.9)

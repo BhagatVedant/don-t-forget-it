@@ -24,17 +24,17 @@ func _ready():
 	add_child(transition_rect)
 	
 	# Load and add timer UI
-	var timer_scene = preload("res://TimerUI.tscn")
+	var timer_scene = preload("res://UI/TimerUI.tscn")
 	timer_ui = timer_scene.instantiate()
 	add_child(timer_ui)
 	
 	# Load and add game over UI
-	var game_over_scene = preload("res://GameOverUI.tscn")
+	var game_over_scene = preload("res://UI/GameOverUI.tscn")
 	game_over_ui = game_over_scene.instantiate()
 	add_child(game_over_ui)
 	
 	# Load and add victory UI
-	var victory_scene = preload("res://VictoryUI.tscn")
+	var victory_scene = preload("res://UI/VictoryUI.tscn")
 	victory_ui = victory_scene.instantiate()
 	add_child(victory_ui)
 	

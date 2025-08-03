@@ -139,7 +139,7 @@ func show_checkpoint_instructions():
 	
 	# If we still can't find it, create it dynamically
 	if not instruction_ui:
-		var instruction_scene = preload("res://CheckpointInstructionUI.tscn")
+		var instruction_scene = preload("res://UI/CheckpointInstructionUI.tscn")
 		instruction_ui = instruction_scene.instantiate()
 		get_tree().current_scene.add_child(instruction_ui)
 		print("Created CheckpointInstructionUI dynamically")

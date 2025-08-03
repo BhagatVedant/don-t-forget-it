@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=4 uid="uid://bc2ln1d8hgm5c"]
 
-[ext_resource type="Script" path="res://StarUI.gd" id="1_1a2b3"]
+[ext_resource type="Script" path="res://UI/StarUI.gd" id="1_1a2b3"]
 [ext_resource type="Texture2D" uid="uid://b0jojyteovtch" path="res://castle/star.png" id="2_4d5e6"]
-[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://edit-undo.brk.ttf" id="3_7f8g9"]
+[ext_resource type="FontFile" uid="uid://dbh1ktmeix3qr" path="res://Fonts/edit-undo.brk.ttf" id="3_7f8g9"]
 
 [node name="StarUI" type="CanvasLayer"]
 script = ExtResource("1_1a2b3")

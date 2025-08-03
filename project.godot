@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="Don't Forget It!"
-run/main_scene="res://main.tscn"
+run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="uid://bhuikcxqj3fxf"
 
 [autoload]
 
-SceneManager="*res://SceneManager.gd"
-AudioManager="*res://AudioManager.tscn"
-StarManager="*res://StarManager.gd"
+SceneManager="*res://Managers/SceneManager.gd"
+AudioManager="*res://Managers/AudioManager.tscn"
+StarManager="*res://Managers/StarManager.gd"
 
 [display]
 

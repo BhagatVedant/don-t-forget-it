@@ -11,4 +11,4 @@ func _on_quit_button_pressed():
 	get_tree().quit()
 
 func _on_credits_button_pressed():
-	SceneManager.transition_to("res://credits.tscn")
+	SceneManager.transition_to("res://Scenes/credits.tscn")
