@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0  # Increased initial jump force
-const DASH_SPEED = 600.0
+const DASH_SPEED = 900
 const GRAVITY_SCALE = 1.5     # Multiplier for stronger gravity
 const APEX_THRESHOLD = 50.0   # Speed threshold for apex detection
 
@@ -113,3 +113,19 @@ func disable_ability():
 		can_dash = false
 	elif can_double_jump:
 		can_double_jump = false
+
+# Checkpoint system integration
+func respawn_at_checkpoint():
+	if SceneManager.has_checkpoint():
+		SceneManager.respawn_player(self)
+		# Reset any player state if needed
+		velocity = Vector2.ZERO
+		jump_count = 0
+		is_dashing = false
+	else:
+		print("No checkpoint available for respawn")
+
+# Call this when player dies or needs to respawn
+func die():
+	print("Player died - respawning at checkpoint")
+	respawn_at_checkpoint()
