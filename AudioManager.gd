@@ -35,14 +35,14 @@ func _on_bgm_finished():
 func play_bgm():
 	if bgm_player and bgm_mushroom:
 		bgm_player.stream = bgm_mushroom
-		bgm_player.volume_db = -10  # Adjust volume as needed
+		bgm_player.volume_db = -18  # Reduced volume for background music
 		bgm_player.play()
 		print("Background music started")
 
 func play_dash_sound():
 	if sfx_player and swoosh_sound:
 		sfx_player.stream = swoosh_sound
-		sfx_player.volume_db = -5  # Adjust volume as needed
+		sfx_player.volume_db = 2  # Increased volume for dash sound
 		sfx_player.play()
 		print("Dash sound played")
 

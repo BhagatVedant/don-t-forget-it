@@ -43,6 +43,7 @@ func _physics_process(delta):
 			if is_on_floor():
 				jump()
 			elif can_double_jump and jump_count < 2:
+				print("Double jump triggered! Jump count: ", jump_count, ", can_double_jump: ", can_double_jump)
 				jump()
 
 		# Handle Dash - only allowed from tutorial step 2 onwards
@@ -65,6 +66,10 @@ func _physics_process(delta):
 
 	update_animation()
 	move_and_slide()
+	
+	# Reset jump count when landing
+	if is_on_floor():
+		jump_count = 0
 
 func disable_input():
 	can_process_input = false

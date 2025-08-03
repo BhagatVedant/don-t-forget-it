@@ -28,6 +28,13 @@ func start_dialogue(text: String):
 	timer.start()
 	panel.show()  # Make sure panel is visible
 	show()        # Make sure canvas layer is visible
+	
+	# Disable player input during dialogue
+	var player = get_tree().get_first_node_in_group("player")
+	if not player:
+		player = get_tree().current_scene.find_child("Player", true, false)
+	if player and player.has_method("disable_input"):
+		player.disable_input()
 
 func _input(event):
 	if visible:
@@ -50,6 +57,14 @@ func on_ui_accept():
 				blink_tween.kill()
 			panel.hide()  # Hide panel
 			hide()        # Hide canvas layer
+			
+			# Re-enable player input after dialogue
+			var player = get_tree().get_first_node_in_group("player")
+			if not player:
+				player = get_tree().current_scene.find_child("Player", true, false)
+			if player and player.has_method("enable_input"):
+				player.enable_input()
+			
 			emit_signal("dialogue_finished")
 
 func _on_Timer_timeout():

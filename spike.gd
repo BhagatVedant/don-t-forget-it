@@ -13,12 +13,12 @@ func _ready():
 func _on_area_2d_body_entered(body):
 	print("Spike collision detected with: ", body.name, " at position: ", body.global_position)
 	if body.name == "Player":
-		print("Player hit spike - resetting to checkpoint")
+		print("Player hit spike - losing ability and resetting to checkpoint")
 		
 		# First try using current checkpoint system
 		if SceneManager.current_checkpoint:
-			SceneManager.current_checkpoint.reset_player_to_checkpoint()
-			print("Reset using current checkpoint system")
+			SceneManager.current_checkpoint.spike_reset_player()
+			print("Reset using current checkpoint system with ability loss")
 		else:
 			# Fallback to player's die method
 			body.die()

@@ -4,7 +4,7 @@ extends Node2D
 @onready var sprite_2d = $Sprite2D
 
 @export var checkpoint_level: int = 1  # Which checkpoint level this is (1, 2, etc.)
-@export var timer_duration: float = 5.0  # Time limit for each level
+@export var timer_duration: float = 5.5  # Time limit for each level
 
 var is_activated = false
 var spawn_position: Vector2
@@ -15,10 +15,11 @@ var just_entered: bool = false
 
 # Ability progression system
 var ability_stages = [
-	{"can_move": true, "can_jump": true, "can_dash": true, "can_double_jump": false},  # Stage 0: Basic abilities
-	{"can_move": true, "can_jump": true, "can_dash": false, "can_double_jump": false}, # Stage 1: Lost dash
-	{"can_move": true, "can_jump": false, "can_dash": false, "can_double_jump": false}, # Stage 2: Lost jump
-	{"can_move": false, "can_jump": false, "can_dash": false, "can_double_jump": false}, # Stage 3: Lost all movement
+	{"can_move": true, "can_jump": true, "can_dash": true, "can_double_jump": true},   # Stage 0: All abilities (after checkpoint 2)
+	{"can_move": true, "can_jump": true, "can_dash": true, "can_double_jump": false},  # Stage 1: Lost double jump
+	{"can_move": true, "can_jump": true, "can_dash": false, "can_double_jump": false}, # Stage 2: Lost dash
+	{"can_move": true, "can_jump": false, "can_dash": false, "can_double_jump": false}, # Stage 3: Lost jump
+	{"can_move": false, "can_jump": false, "can_dash": false, "can_double_jump": false}, # Stage 4: Lost all movement
 ]
 
 var current_ability_stage: int = 0
@@ -77,6 +78,7 @@ func activate_checkpoint():
 		SceneManager.current_checkpoint.force_stop_timing()
 	
 	is_activated = true
+	print("Activating checkpoint ", checkpoint_level, " at position: ", global_position)
 	
 	# Change to frame 1 (activated checkpoint)
 	sprite_2d.frame = 1
@@ -86,19 +88,26 @@ func activate_checkpoint():
 	if audio_manager:
 		audio_manager.play_checkpoint_sound()
 	
-	# Reset abilities to full when reaching new checkpoint
-	current_ability_stage = 0
+	# Reset abilities based on checkpoint level
+	if checkpoint_level >= 2:
+		# After checkpoint 2, start with all abilities (including double jump)
+		current_ability_stage = 0
+	else:
+		# Before checkpoint 2, start with basic abilities (no double jump)
+		current_ability_stage = 1
+	
 	if player_in_level:
 		restore_all_abilities()
 	
 	# Set this as the current spawn point
 	set_as_current_spawn_point()
 	
-	# Special handling for checkpoint 2 - grant double jump
+	# Special handling for checkpoint 2 - grant double jump with dialogue
 	if checkpoint_level == 2:
+		print("This is checkpoint 2, granting double jump...")
 		grant_double_jump()
 	
-	print("Checkpoint ", checkpoint_level, " activated at position: ", global_position)
+	print("Checkpoint ", checkpoint_level, " activation complete")
 
 func start_level_timer():
 	current_timer = timer_duration
@@ -138,6 +147,8 @@ func lose_ability():
 		send_to_start()
 		return
 	
+	print("Lost ability! Now at stage ", current_ability_stage)
+	
 	# Apply new ability restrictions
 	if player_in_level:
 		apply_abilities_to_player()
@@ -162,8 +173,8 @@ func apply_abilities_to_player():
 	
 	print("Applied abilities - Stage ", current_ability_stage)
 	
-	# Check if player lost all movement (stage 3) - show game over
-	if current_ability_stage == 3:  # Stage 3 is no movement
+	# Check if player lost all movement (stage 4) - show game over
+	if current_ability_stage == 4:  # Stage 4 is no movement
 		print("Player lost all movement - showing game over screen")
 		# Small delay to let the restriction apply
 		await get_tree().create_timer(0.5).timeout
@@ -201,6 +212,25 @@ func reset_player_to_checkpoint():
 		
 		print("Player reset to checkpoint ", checkpoint_level)
 
+func spike_reset_player():
+	print("Player hit spike! Losing an ability and resetting to checkpoint")
+	
+	# Lose an ability first
+	lose_ability()
+	
+	# Then reset player position if they still have some abilities
+	if current_ability_stage < ability_stages.size():
+		if player_in_level:
+			player_in_level.global_position = spawn_position
+			player_in_level.velocity = Vector2.ZERO
+			
+			# Stop any active timer
+			is_timing = false
+			SceneManager.hide_timer()
+			
+			print("Player reset to checkpoint ", checkpoint_level, " with reduced abilities")
+	# If they lost all abilities, lose_ability() will handle sending them to start
+
 func send_to_start():
 	print("Player sent back to start - lost all abilities")
 	current_ability_stage = 0  # Reset abilities
@@ -214,19 +244,30 @@ func send_to_start():
 func grant_double_jump():
 	if player_in_level:
 		player_in_level.can_double_jump = true
+		print("Double jump granted to player!")
 		show_dialogue("Double jump obtained! Press SPACE again in mid-air!")
+	else:
+		print("Error: No player found when trying to grant double jump!")
 
 func show_dialogue(text: String):
+	print("Attempting to show dialogue: ", text)
+	
 	# Find DialogueBox in the scene
 	var dialogue_box = get_tree().get_first_node_in_group("dialogue")
 	if not dialogue_box:
-		# Try to find it in the scene
-		dialogue_box = get_node_or_null("/root/*/DialogueBox")
+		# Try to find it in the scene tree
+		dialogue_box = get_tree().get_first_node_in_group("dialogue")
+		if not dialogue_box:
+			# Try alternative path
+			var scene_root = get_tree().current_scene
+			if scene_root:
+				dialogue_box = scene_root.find_child("DialogueBox", true, false)
 	
 	if dialogue_box:
+		print("Found DialogueBox, starting dialogue")
 		dialogue_box.start_dialogue(text)
 	else:
-		print("Dialogue: ", text)
+		print("DialogueBox not found! Dialogue: ", text)
 
 func set_as_current_spawn_point():
 	# Use the global SceneManager to set this checkpoint
