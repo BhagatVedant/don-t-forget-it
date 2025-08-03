@@ -12,9 +12,19 @@ func _ready():
 	visible = false
 
 func _input(event):
-	if waiting_for_input and event.pressed:
-		waiting_for_input = false
-		fade_to_main_screen()
+	if waiting_for_input:
+		# Check for key presses
+		if event is InputEventKey and event.pressed:
+			waiting_for_input = false
+			fade_to_main_screen()
+		# Check for mouse button presses
+		elif event is InputEventMouseButton and event.pressed:
+			waiting_for_input = false
+			fade_to_main_screen()
+		# Check for gamepad button presses
+		elif event is InputEventJoypadButton and event.pressed:
+			waiting_for_input = false
+			fade_to_main_screen()
 
 func show_game_over():
 	visible = true

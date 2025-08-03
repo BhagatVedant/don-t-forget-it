@@ -245,6 +245,11 @@ func restore_all_abilities():
 
 func reset_player_to_checkpoint():
 	if player_in_level:
+		# Red flash effect when timer resets
+		SceneManager.fade_in(Color.RED)
+		await get_tree().create_timer(0.2).timeout  # Brief red flash
+		SceneManager.fade_out()
+		
 		player_in_level.global_position = spawn_position
 		player_in_level.velocity = Vector2.ZERO
 		
@@ -266,6 +271,11 @@ func spike_reset_player():
 	# Then reset player position if they still have some abilities
 	if current_ability_stage < ability_stages.size():
 		if player_in_level:
+			# Red flash effect when hitting spike
+			SceneManager.fade_in(Color.RED)
+			await get_tree().create_timer(0.2).timeout  # Brief red flash
+			SceneManager.fade_out()
+			
 			player_in_level.global_position = spawn_position
 			player_in_level.velocity = Vector2.ZERO
 			

@@ -35,7 +35,7 @@ func _on_bgm_finished():
 func play_bgm():
 	if bgm_player and bgm_mushroom:
 		bgm_player.stream = bgm_mushroom
-		bgm_player.volume_db = -18  # Reduced volume for background music
+		bgm_player.volume_db = -24  # Reduced volume for background music (was -18)
 		bgm_player.play()
 		print("Background music started")
 

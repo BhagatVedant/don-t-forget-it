@@ -41,6 +41,28 @@ func _ready():
 	# Initialize game tracking
 	start_time = Time.get_time_dict_from_system()["hour"] * 3600 + Time.get_time_dict_from_system()["minute"] * 60 + Time.get_time_dict_from_system()["second"]
 
+func _input(_event):
+	# Handle fullscreen toggle
+	if Input.is_action_just_pressed("toggle_fullscreen"):
+		print("F11 pressed - toggling fullscreen")
+		toggle_fullscreen()
+
+func toggle_fullscreen():
+	var current_mode = DisplayServer.window_get_mode()
+	print("Current window mode: ", current_mode)
+	
+	if current_mode == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		print("Switched to windowed mode")
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		print("Switched to fullscreen mode")
+	
+	# Verify the change
+	await get_tree().process_frame
+	var new_mode = DisplayServer.window_get_mode()
+	print("New window mode: ", new_mode)
+
 func transition_to(scene_path: String, color: Color = Color.BLACK):
 	if is_transitioning:
 		return
