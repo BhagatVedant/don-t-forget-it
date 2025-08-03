@@ -4,7 +4,7 @@ extends Node2D
 @onready var sprite_2d = $Sprite2D
 
 @export var checkpoint_level: int = 1  # Which checkpoint level this is (1, 2, etc.)
-@export var timer_duration: float = 5.5  # Time limit for each level
+@export var timer_duration: float = 5  # Time limit for each level
 @export var is_final_checkpoint: bool = false  # Set to true for the last checkpoint
 
 var is_activated = false
