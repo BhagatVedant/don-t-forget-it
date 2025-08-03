@@ -34,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.85)
 metadata/_edit_lock_ = true
 
@@ -93,6 +94,7 @@ text = "Stars Taken: 0/21
 Times Reset: 0
 Total Time to Clear: 0:00
 
-Press SPACE to go to home screen"
+Press any key to return to main menu
+(or wait 10 seconds)"
 horizontal_alignment = 1
 vertical_alignment = 1
