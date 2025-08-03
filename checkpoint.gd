@@ -5,6 +5,7 @@ extends Node2D
 
 @export var checkpoint_level: int = 1  # Which checkpoint level this is (1, 2, etc.)
 @export var timer_duration: float = 5.5  # Time limit for each level
+@export var is_final_checkpoint: bool = false  # Set to true for the last checkpoint
 
 var is_activated = false
 var spawn_position: Vector2
@@ -80,6 +81,13 @@ func activate_checkpoint():
 	is_activated = true
 	print("Activating checkpoint ", checkpoint_level, " at position: ", global_position)
 	
+	# Track highest checkpoint reached for double jump persistence
+	var current_highest = 1
+	if SceneManager.has_variable("highest_checkpoint_reached"):
+		current_highest = SceneManager.get_variable("highest_checkpoint_reached")
+	if checkpoint_level > current_highest:
+		SceneManager.set_variable("highest_checkpoint_reached", checkpoint_level)
+	
 	# Change to frame 1 (activated checkpoint)
 	sprite_2d.frame = 1
 	
@@ -106,6 +114,13 @@ func activate_checkpoint():
 	if checkpoint_level == 2:
 		print("This is checkpoint 2, granting double jump...")
 		grant_double_jump()
+	
+	# Check if this is the final checkpoint - show victory screen
+	if is_final_checkpoint:
+		print("Final checkpoint reached! Showing victory screen...")
+		# Small delay for effect
+		await get_tree().create_timer(1.0).timeout
+		SceneManager.show_victory()
 	
 	print("Checkpoint ", checkpoint_level, " activation complete")
 
@@ -186,17 +201,22 @@ func restore_all_abilities():
 	
 	# Give back all basic abilities
 	player_in_level.can_dash = true
-	player_in_level.can_double_jump = false  # Will be granted specifically at checkpoint 2
 	
-	# Special handling: if this is checkpoint 2 or later, grant double jump
-	if checkpoint_level >= 2:
-		player_in_level.can_double_jump = true
+	# Check if player has unlocked double jump by checking if they've been to checkpoint 2
+	# Use SceneManager to track highest checkpoint reached
+	var has_double_jump = false
+	if SceneManager.has_variable("highest_checkpoint_reached"):
+		has_double_jump = SceneManager.get_variable("highest_checkpoint_reached") >= 2
+	elif checkpoint_level >= 2:
+		has_double_jump = true
+		
+	player_in_level.can_double_jump = has_double_jump
 	
 	# Enable all movement
 	player_in_level.enable_movement()
 	player_in_level.enable_jump()
 	
-	print("All abilities restored!")
+	print("All abilities restored! Double jump: ", has_double_jump)
 
 func reset_player_to_checkpoint():
 	if player_in_level:
@@ -234,6 +254,9 @@ func spike_reset_player():
 func send_to_start():
 	print("Player sent back to start - lost all abilities")
 	current_ability_stage = 0  # Reset abilities
+	
+	# Track death/memory loss
+	SceneManager.increment_death_count()
 	
 	# Hide the timer
 	SceneManager.hide_timer()

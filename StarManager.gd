@@ -17,6 +17,10 @@ func add_star():
 func get_star_count() -> int:
 	return star_count
 
+func get_total_stars() -> int:
+	# Return the total number of stars in the game
+	return 21  # Based on the scene structure
+
 func reset_stars():
 	star_count = 0
 	star_count_changed.emit(star_count)

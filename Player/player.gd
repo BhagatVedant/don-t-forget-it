@@ -18,6 +18,7 @@ var jump_count = 0
 var is_dashing = false
 var can_process_input = true  # New variable to control input processing
 var tutorial_step = 0        # Current tutorial step
+var debug_v_pressed = false  # Track V key state for debug
 
 # Movement restriction variables
 var movement_disabled = false
@@ -38,6 +39,13 @@ func _physics_process(delta):
 
 	# Only process input if allowed (not during dialogue)
 	if can_process_input:
+		# Debug: Press V to win
+		if Input.is_physical_key_pressed(KEY_V) and not debug_v_pressed:
+			debug_v_pressed = true
+			SceneManager.show_victory()
+		elif not Input.is_physical_key_pressed(KEY_V):
+			debug_v_pressed = false
+		
 		# Handle Jump - only allowed from tutorial step 1 onwards and if jump not disabled
 		if Input.is_action_just_pressed("jump") and tutorial_step >= 1 and not jump_disabled:
 			if is_on_floor():

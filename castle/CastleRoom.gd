@@ -48,7 +48,7 @@ func start_cutscene():
 	player.disable_input()
 	
 	# Start dialogue with faster prompt timing
-	dialogue_box.start_dialogue("Where... am I? Why can't I remember anything?")
+	dialogue_box.start_dialogue("cannot remember... ugh...")
 	await dialogue_box.dialogue_finished
 	
 	# Quick pause before fade

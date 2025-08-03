@@ -37,8 +37,8 @@ offset_left = 224.0
 offset_top = 144.0
 offset_right = 927.0
 offset_bottom = 304.0
-text = "CHAPTER I 
-The Forgotten King"
+text = "Don't Forget
+Or else"
 label_settings = SubResource("LabelSettings_7a463")
 horizontal_alignment = 1
 
@@ -54,7 +54,6 @@ label_settings = SubResource("LabelSettings_6elq1")
 offset_top = 304.0
 offset_right = 1152.0
 offset_bottom = 379.0
-text = "\"We all start with a crown,
-until we forget we ever wore one.\""
+text = "Make sure they dont put you back"
 label_settings = SubResource("LabelSettings_drduu")
 horizontal_alignment = 1

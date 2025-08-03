@@ -4,11 +4,17 @@ var transition_rect: ColorRect
 var is_transitioning := false
 var timer_ui: Control = null
 var game_over_ui: Control = null
+var victory_ui: CanvasLayer = null
 
 # Checkpoint system
 var current_checkpoint: Node2D = null
 var checkpoint_spawn_position: Vector2 = Vector2.ZERO
 var start_position: Vector2 = Vector2.ZERO  # Starting position of the level
+
+# Game state variables
+var game_variables: Dictionary = {}
+var death_count: int = 0
+var start_time: float = 0.0
 
 func _ready():
 	# Create a black rectangle that covers the whole screen
@@ -26,6 +32,14 @@ func _ready():
 	var game_over_scene = preload("res://GameOverUI.tscn")
 	game_over_ui = game_over_scene.instantiate()
 	add_child(game_over_ui)
+	
+	# Load and add victory UI
+	var victory_scene = preload("res://VictoryUI.tscn")
+	victory_ui = victory_scene.instantiate()
+	add_child(victory_ui)
+	
+	# Initialize game tracking
+	start_time = Time.get_time_dict_from_system()["hour"] * 3600 + Time.get_time_dict_from_system()["minute"] * 60 + Time.get_time_dict_from_system()["second"]
 
 func transition_to(scene_path: String, color: Color = Color.BLACK):
 	if is_transitioning:
@@ -128,3 +142,33 @@ func update_timer(time: float):
 func show_game_over():
 	if game_over_ui:
 		game_over_ui.show_game_over()
+
+# Victory UI functions
+func show_victory():
+	if victory_ui:
+		victory_ui.show_victory()
+
+# Variable management functions
+func set_variable(var_name: String, value):
+	game_variables[var_name] = value
+
+func get_variable(var_name: String, default_value = null):
+	return game_variables.get(var_name, default_value)
+
+func has_variable(var_name: String) -> bool:
+	return var_name in game_variables
+
+# Death tracking
+func increment_death_count():
+	death_count += 1
+
+func get_death_count() -> int:
+	return death_count
+
+# Time tracking
+func start_game_timer():
+	start_time = Time.get_time_dict_from_system()["hour"] * 3600 + Time.get_time_dict_from_system()["minute"] * 60 + Time.get_time_dict_from_system()["second"]
+
+func get_play_time() -> float:
+	var current_time = Time.get_time_dict_from_system()["hour"] * 3600 + Time.get_time_dict_from_system()["minute"] * 60 + Time.get_time_dict_from_system()["second"]
+	return current_time - start_time

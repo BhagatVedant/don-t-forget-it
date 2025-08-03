@@ -530,7 +530,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("5_uvwxy")
 theme_override_font_sizes/font_size = 32
-text = "Where... am I? Why can't I remember anything?"
+text = "cannot remember... ugh..."
 vertical_alignment = 1
 
 [node name="Indicator" type="Label" parent="DialogueBox/Panel"]
@@ -672,18 +672,24 @@ checkpoint_level = 3
 
 [node name="Checkpoint5" parent="checkpoints" instance=ExtResource("12_j0tvp")]
 position = Vector2(1376, 0)
+checkpoint_level = 4
 
 [node name="Checkpoint6" parent="checkpoints" instance=ExtResource("12_j0tvp")]
 position = Vector2(2464, 0)
+checkpoint_level = 5
 
 [node name="Checkpoint7" parent="checkpoints" instance=ExtResource("12_j0tvp")]
 position = Vector2(3264, 0)
+checkpoint_level = 6
 
 [node name="Checkpoint" parent="checkpoints" instance=ExtResource("12_j0tvp")]
 position = Vector2(1856, 0)
+checkpoint_level = 7
 
 [node name="Checkpoint8" parent="checkpoints" instance=ExtResource("12_j0tvp")]
 position = Vector2(3904, -64)
+checkpoint_level = 8
+is_final_checkpoint = true
 
 [node name="strars" type="Node2D" parent="."]
 position = Vector2(912, 192)

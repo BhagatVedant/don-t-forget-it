@@ -59,5 +59,11 @@ func fade_to_main_screen():
 	go_to_main_screen()
 
 func go_to_main_screen():
-	# Transition to main screen
-	SceneManager.transition_to("res://main.tscn")
+	# Reset game statistics when going back to start
+	SceneManager.death_count = 0
+	SceneManager.game_variables.clear()
+	StarManager.reset_stars()
+	SceneManager.start_game_timer()  # Reset the timer properly
+	
+	# Transition to intro screen
+	SceneManager.transition_to("res://castle/intro_ui.tscn")
